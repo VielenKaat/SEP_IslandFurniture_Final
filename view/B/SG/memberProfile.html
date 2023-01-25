@@ -30,9 +30,39 @@
             document.addEventListener('DOMContentLoaded', function(){
                 member = JSON.parse(sessionStorage.getItem("member"));
 
-                if(member.sla == 1) {
-                    document.getElementById("serviceLevelAgreement").checked = true;
+                  // =======================================================================================================
+            //Fixed for view user Profile............................... 
+            // =======================================================================================================
+            // Member profile
+            document.getElementById("name").value = member.name;
+            document.getElementById("email").value = member.email;
+            document.getElementById("phone").value = member.phone;
+            document.getElementById("age").value = member.age;
+            document.getElementById("address").value = member.address;
+            document.getElementById("securityQuestion").value = member.securityQuestion;
+            document.getElementById("phone").value = member.phone;
+            document.getElementById("income").value = member.income;
+            document.getElementById("securityAnswer").value = member.securityAnswer;
+
+            if (member.sla == 1) {
+                document.getElementById("serviceLevelAgreement").checked = true;
+            }
+
+            const countryList = document.querySelector("#country");
+            var totalCountries = new Array(countryList.length);
+            for (var i = 0; i < countryList.length; i++) {
+                totalCountries[i] = countryList[i].value;
+            }
+            for (var i = 0; i < totalCountries.length; i++) {
+                if (totalCountries[i] == member.city) {
+                    countryList[i].selected = true
                 }
+            }
+
+            // =======================================================================================================
+            //End ofFixed for view user Profile............................... 
+            // =======================================================================================================
+
 
                 //Get Bought Items
                 fetch(new Request('/api/getBoughtItem/' + member.id,
